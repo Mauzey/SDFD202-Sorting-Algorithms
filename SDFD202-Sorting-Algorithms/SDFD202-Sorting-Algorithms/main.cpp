@@ -4,9 +4,10 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
+#include <conio.h>
 
 #define NUMBER_COUNT 10 // The amount of random numbers the vector stores
-#define MAX_NUMBER 1000 // The highest a number can be generated as
+#define MAX_NUMBER 20 // The highest a number can be generated as
 
 using namespace std;
 
@@ -21,14 +22,21 @@ void sortUsingSelection(vector<int> & v);
 void main(void) {
 	// Generate new set of numbers
 	createVector(intVector);
+	cout << "Un-Sorted Vector: ";
+	printVector(intVector);
 
 	// Start timer and begin sorting algorithm
-	sortUsingInsertion(intVector);
+	//sortUsingInsertion(intVector);
 	sortUsingBubble(intVector);
-	sortUsingSelection(intVector);
+	//sortUsingSelection(intVector);
 
 	// End timer and print results
 
+	cout << "Sorted Vector: ";
+	printVector(intVector);
+	cout << "Elapsed time: ";
+
+	_getch();
 }
 
 // Fill a vector with a set of random numbers
@@ -38,17 +46,32 @@ void createVector(vector<int> & v) {
 
 // Print the contents of a vector
 void printVector(vector<int> & v) {
-	for (int i = 0; i < v.size(); ++i) cout << v[i] << endl;
+	for (int i = 0; i < v.size(); ++i) cout << v[i] << " ";
+	cout << endl;
 }
 
 // Sort a vector using the insertion algorithm
 void sortUsingInsertion(vector<int> & v) {
+	for (int i = 1; i < v.size(); i++) {
+		int key = v[i];
+		int j = i - 1;
 
+		while (j >= 0 && v[j] > key) {
+			v[j + 1] = v[j];
+			j = j - 1;
+		}
+
+		v[j + 1] = key;
+	}
 }
 
 // Sort a vector using the bubble algorithm
 void sortUsingBubble(vector<int> & v) {
-
+	for (int i = 0; i < v.size() - 1; i++) {
+		for (int j = 0; j < v.size() - i - 1; j++) {
+			if (v[j] > v[j + 1]) swap(v.at(j), v.at(j + 1));
+		}
+	}
 }
 
 // Sort a vector using the selection algorithm
