@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <conio.h>
+#include <chrono>
 
 #define NUMBER_COUNT 10 // The amount of random numbers the vector stores
 #define MAX_NUMBER 20 // The highest a number can be generated as
@@ -19,22 +20,32 @@ void sortUsingInsertion(vector<int> & v);
 void sortUsingBubble(vector<int> & v);
 void sortUsingSelection(vector<int> & v);
 
+// Timer variables
+chrono::time_point<chrono::steady_clock> startTime, endTime;
+chrono::duration<float> runTime;
+
 void main(void) {
 	// Generate new set of numbers
 	createVector(intVector);
 	cout << "Un-Sorted Vector: ";
 	printVector(intVector);
 
-	// Start timer and begin sorting algorithm
+	// Start timer
+	startTime = chrono::high_resolution_clock::now();
+
 	//sortUsingInsertion(intVector);
 	sortUsingBubble(intVector);
 	//sortUsingSelection(intVector);
 
-	// End timer and print results
+	// End timer + calculate runtime (milliseconds)
+	endTime = chrono::high_resolution_clock::now();
+	runTime = endTime - startTime;
 
+	// Print results
 	cout << "Sorted Vector: ";
 	printVector(intVector);
-	cout << "Elapsed time: ";
+	cout << endl << "Finished sorting " << NUMBER_COUNT << " numbers." << endl;
+	cout << "Elapsed Time = " << (float)runTime.count() * 1000.0f << "ms" << endl;
 
 	_getch();
 }
