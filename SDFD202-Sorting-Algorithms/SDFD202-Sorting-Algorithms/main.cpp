@@ -1,4 +1,4 @@
-// Sorting Algorithms - SDFD___ - Alex Mounsey (2018)
+// Sorting Algorithms - SDFD202 - Alex Mounsey (2018)
 // A program that can sort a set of numbers by using a selection of sorting algorithms
 
 #include <vector>
@@ -7,8 +7,8 @@
 #include <conio.h>
 #include <chrono>
 
-#define NUMBER_COUNT 10 // The amount of random numbers the vector stores
-#define MAX_NUMBER 20 // The highest a number can be generated as
+#define NUMBER_COUNT 50000 // The amount of random numbers the vector stores
+#define MAX_NUMBER 100000 // The highest a number can be generated as
 
 using namespace std;
 
@@ -27,7 +27,7 @@ chrono::duration<float> runTime;
 void main(void) {
 	// Generate new set of numbers
 	createVector(intVector);
-	cout << "Un-Sorted Vector: ";
+	cout << "UnSorted Vector: ";
 	printVector(intVector);
 
 	// Start timer
@@ -64,15 +64,15 @@ void printVector(vector<int> & v) {
 // Sort a vector using the insertion algorithm
 void sortUsingInsertion(vector<int> & v) {
 	for (int i = 1; i < v.size(); i++) {
-		int key = v[i];
+		int currentValue = v[i];
 		int j = i - 1;
 
-		while (j >= 0 && v[j] > key) {
+		while (j >= 0 && v[j] > currentValue) {
 			v[j + 1] = v[j];
 			j = j - 1;
 		}
 
-		v[j + 1] = key;
+		v[j + 1] = currentValue;
 	}
 }
 
